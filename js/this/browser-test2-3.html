@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>this 指向</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	/*
+	2.函数上下文中的 this
+
+	浏览器环境下：
+		
+	 */
+
+	/*
+	有人会说啊，你这都是在全局环境下运行的例子并且例子太简单了，然后就下结论了，这太不具备说服力了：
+
+	个人一直认为，分析原理性的东西，越是从简单入手，才能越是切中要害，掌握单个知识点的精髓，复杂的分析 只是由 n多个小知识点 组合而成而已；
+
+	我下面来个复杂点的，验证我们的结论；
+	 */
+	// demo 3:
+	"use strict" 
+
+	var name = "sss";
+    var obj = {
+        name: "jjj",
+        sayName: function(){
+        	console.log(this);
+
+            innerFunction();
+            function innerFunction(){
+                console.log(this);
+            }
+
+            return function(){
+                console.log(this);
+            }
+        }
+    }
+
+    // scene 1:
+    obj.sayName();				// strict -->obj undefined	no strict -->obj window   
+    /*
+    分析： 
+    	sayName()作为 obj对象方法来执行，它的环境对象是 obj对象；
+
+    	innerFunction() 没有指定执行上下文的环境对象，
+
+    	所以，执行上下文的环境对象，严格模式下，为 undefined; 非严格模式下，为 Window对象；
+
+	*/
+
+	// scene 2:
+    obj.sayName()();			// strict -->obj undefined undefined 	no strict-->obj window window
+    /*
+    --> 上式的执行 相当于 下面两句表达式
+     */
+    var test = obj.sayName();	// strict -->obj undefined 	no strict-->obj window
+    test();						// strict -->undefined 	no strict-->window
+    /*
+    分析：
+     	先执行 obj.sayName(), 输出结果的原因，已在 scene 1中做了说明，不再重复；
+
+    	执行 test()，由于 test代表 obj.sayName()执行后，返回的匿名函数，当这个匿名函数 执行时，由于没有给它指定 执行上下文的环境对象，
+
+    	所以，它的执行上下文环境对象，严格模式下 是 undefined; 非严格模式下 是 Window对象；
+
+    	输出结果，与结论相稳合；
+     */
+
+     // scene 3:
+    test.call(obj);				// strict -->obj 	no strict-->obj
+    /*
+    分析： 
+     	接着 scene 2的解释，test代表 obj.sayName()执行后，返回的匿名函数，然后又给这个函数指定了执行上下文的环境对象 obj;
+
+    	从输出结果来看，这符合给出的结论；
+     */
+
+	
+	/*
+	综上，浏览器环境下，我们的对 函数的执行上下文环境对象的结论概括 是成立的;
+
+	 */
+	
+
+
+</script>
+	
+</body>
+</html>

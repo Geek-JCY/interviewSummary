@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	// 考点：JS 的单线程；事件循环机制
+	
+	var t = true;
+	window.setTimeout(function(){
+		t = false;
+	}, 1000);
+	// while(t){}  // 尝试打开 后看效果
+	alert('end');
+
+	// 打开注释的地方后，结果：出现死循环，线程阻塞；
+	/*
+		原因：
+			js 在执行上下文中，是单线程的执行方式；执行时，自上而下顺序执行，当上一句执行完毕之后，才会执行下一句；
+			而此例，在执行到 while循环时，此时，由于 setTimeout()中回掉函数，会在下轮事件循环的时候才能执行，所以此时，t=true，
+			而t=true的话，会使while循环陷入死循环，所以，程序会一直执行下去，线程无法继续往下执行；
+			所以结果就是：出现死循环，线程阻塞；
+	 */ 
+</script>
+	
+</body>
+</html>

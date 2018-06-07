@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>progress事件</title>
+</head>
+<body>
+    <button id="triggerBtn">trigger button</button>
+    <p id="status"></p>
+    <p id="statusPercent"></p>
+	
+	
+	<script type="text/javascript">
+		// 创建 XHR对象的兼容性 写法
+        function createXHR(){
+            if (typeof XMLHttpRequest != "undefined"){
+                return new XMLHttpRequest();
+            } else if (typeof ActiveXObject != "undefined"){
+                if (typeof arguments.callee.activeXString != "string"){
+                    var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0",
+                                    "MSXML2.XMLHttp"],
+                        i, len;
+            
+                    for (i=0,len=versions.length; i < len; i++){
+                        try {
+                            var xhr = new ActiveXObject(versions[i]);
+                            arguments.callee.activeXString = versions[i];
+                            return xhr;
+                        } catch (ex){
+                            //skip
+                        }
+                    }
+                }
+            
+                return new ActiveXObject(arguments.callee.activeXString);
+            } else {
+                throw new Error("No XHR object available.");
+            }
+        }
+
+        // 交互操作
+        function xhrMutual(){
+            var xhr = createXHR();
+            // onload 事件
+            xhr.onload = function(){
+                if( (xhr.status >= 200 && xhr.status < 300) || xhr.status == 304 ){
+                    console.log(xhr.responseText);
+                } else {
+                    console.log('Request was unsucessful: ' + xhr.status );
+                }
+            }
+
+            // onprogress 事件
+            xhr.onprogress = function(event){
+                var pStatus = document.querySelector('#status'),
+                    statusPercent = document.querySelector('#statusPercent');
+                // (pStatus.innerHTML);
+                // console.log(event); // event对象 里包含有关字节信息，每个浏览器表示它们的进度信息 并不完全相同, 看具体情况
+                pStatus.innerHTML = "Received " + event.loaded + " of " + event.total + " bytes";
+                statusPercent.innerHTML = "loaded "+ getPercent(event.loaded, event.total);
+            }
+
+            xhr.open('get','../example.txt', true);
+            
+            xhr.send(null);
+        }
+
+        // 计算两个数的百分比
+        function getPercent(num, total){
+            num = parseFloat(num);
+            total = parseFloat(total);
+            return isNaN(num)||isNaN(total) ? "-" : ( total <= 0 ? "0" : (Math.round(num/total*10000)/100.00) ) + "%"; 
+        }
+
+        // 点击按钮触发交互
+        var triggerBtn = document.querySelector('#triggerBtn');
+        triggerBtn.onclick = function(){
+            xhrMutual();
+        }
+
+        
+	</script>
+
+
+</body>
+</html>

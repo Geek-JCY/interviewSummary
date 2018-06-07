@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<div>
+
+</div>
+
+<script type="text/javascript">
+	var a = 1;
+	var b = 2;
+	var o1 = {
+		a: 3,
+		b: 4,
+		o2: {
+			a: 5,
+			b: 6,
+			c: this.a + this.b,
+			fn: function(){
+				console.log(this.a + this.b);
+			}
+		},
+		fn: function(){
+			console.log(this.a + this.b);
+			test();
+			function test(){
+				console.log(this.a + this.b);
+			}
+		}
+	}
+	console.log( o1.o2.c );
+
+	// o1.fn.call(o1.o2);
+
+	// o1.o2.fn();
+
+	// var o1fn = o1.fn;
+	// o1fn();
+
+	// var o1o2fn = o1.o2.fn;
+	// o1o2fn();
+
+	
+</script>
+	
+</body>
+</html>

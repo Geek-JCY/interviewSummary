@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>this 指向</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	/*
+	2.函数上下文中的 this
+
+	浏览器环境下：
+		
+		非严格模式下
+	 */
+
+	/*
+	好了，严格模式下，我们已经得出结论了； 我们再来看看非严格模式下 输出结果会是什么样；
+	 */
+	// demo 1: 作为单独函数 执行
+	// "use strict" 
+
+	function test1(){
+		console.log(this);
+	}
+	test1();				// Window
+
+	test1.call(window);		// Window
+
+	window.test1();			// Window
+
+	var obj = {name: 'obj'};
+
+	test1.call(obj)			// {name: 'obj'}
+
+	test1.call(null) 		// Window
+
+	test1.call(undefined) 	// Window
+
+	// demo 2: 作为对象方法 执行
+	var obj2 = {
+		a:1,
+		sayThis: function(){
+			console.log(this);
+		}
+	}
+	obj2.sayThis();	// obj2
+
+	
+	/*
+	我们发现，原来 没有被指定执行上下文环境对象 或 指定了执行上下文环境变量为 undefined 和 null 的，它的 this 值都指向了 Window 对象；
+	 
+	非严格模式下，我们应该可以这样下个结论，
+
+	"非严格模式下，如果函数在执行时 没有指定执行上下文环境对象 或者 指定执行上下文环境对象为 null 或 undefined, 那么它的执行上下文环境对象 会默认为 全局对象",
+
+	也就是 this 会指向 全局对象;
+
+	概括一下：
+
+		浏览器环境 非严格模式下：
+	
+		函数作为单独函数 执行：
+
+	 		1.函数执行上下文的环境对象 是指定的，指定什么就是什么；this指向这个指定的环境对象；
+
+		函数作为对象方法 执行：
+
+	 		2.这个函数执行上下文的环境对象就是这个拥有它的对象；this指向这个拥有它的对象；
+
+	 */
+	
+
+
+</script>
+	
+</body>
+</html>

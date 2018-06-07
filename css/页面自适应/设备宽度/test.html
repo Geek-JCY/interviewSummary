@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+
+    <script type="text/javascript">
+        
+        console.log('网页可见区域宽：'+ document.body.clientWidth);
+        console.log('网页可见区域高：'+ document.body.clientHeight);
+        console.log('网页可见区域宽：'+ document.body.offsetWidth +'(包括边线的宽)');
+        console.log('网页可见区域高：'+ document.body.offsetHeight +'(包括边线的高)');
+        console.log('网页正文全文宽：'+ document.body.scrollWidth);
+        console.log('网页正文全文高：'+ document.body.scrollHeight);
+        console.log('网页被卷去的高：'+ document.body.scrollTop);
+        console.log('网页被卷去的左：'+ document.body.scrollLeft);
+        console.log('网页正文部分上：'+ window.screenTop);
+        console.log('网页正文部分左：'+ window.screenLeft);
+        console.log('屏幕物理分辨率的高：'+ window.screen.height);
+        console.log('屏幕物理分辨率的宽：'+ window.screen.width);
+        console.log('屏幕可用工作区高度：'+ window.screen.availHeight);
+
+        console.log('屏幕可用工作区宽度：'+ window.screen.availWidth);
+
+        console.log('屏幕缩放因子：'+ window.devicePixelRatio);
+
+        console.log('屏幕逻辑分辨率：'+ window.screen.width * window.devicePixelRatio +' (缩放因子与物理分辨率的乘积)');
+    </script>    
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>this 指向</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	/*
+	2.函数上下文中的 this
+
+	浏览器环境下：
+
+		严格模式下
+	 */
+	// demo :
+	'use strict'; // 严格模式
+	var a = 1;
+	// demo 1:
+	function test1(){
+		console.log(this);
+	}
+	test1();	// strict-->undefined 	nostrict-->Window
+	
+
+	/*
+	首先，要了解一点，函数的 this指向，有些特殊；
+
+	它与全局环境中的 this 不一样，因为全局中的 this 已经明显指出了它的执行上下文环境就是 全局环境，那么它的 this 一定指向全局对象 Window;
+
+	根据 《JavasScript 高级程序设计》中提到的，关于 javascript严格模式，this 指向的说明：“严格模式下，函数的 this值始终是 指定的值，无论这个指定的值是什么”；
+
+	那么，我们一直是在求证我们的“this指向 其执行上下文的环境对象”，那么我们就开始试着把这个 “指定的值”理解为我们所说的 环境对象；看看在之后的论述中是否说的通；
+
+	然后我们做一个这样的总结，也就是说，在严格模式下，function的环境对象是指定的；
+
+	结合上面 demo在严格模式下运行的结果为 undefined来看，应该是说的通了，
+
+	分析：
+
+		因为 test1() 在执行的时候，并没有给它指定环境对象，所以 得出结果是 undefined;
+	 */
+	
+
+	/*
+	下面，我们给 test1() 指定 一个环境变量后再看一下输出；
+	 */
+	test1.call(window);	//strict-->Window 	nostrict-->Window
+
+	/*
+	也许有人会问，window可以直接调用 test1(),并且输出 this值为 Window, 这是为什么呢？ 如下：
+	 */
+	window.test1(); // Window
+	/*
+	这是因为，function test1 在全局作用域下声明的，而全局作用域下声明的变量都是 window对象的方法，所以可以用这样的 对象.方法() 的形式 执行函数；
+
+	而，函数作为对象方法被使用的时候，函数的执行上下文环境对象就为 这个拥有它的对象；
+	 */
+	
+	/*
+	我们再给 test1() 指定其它的环境对象，看看情况是什么样的；
+	 */
+	var obj = {name: 'obj'};
+	test1.call(obj)	// {name: 'obj'}
+	test1.call(null) // null
+	test1.call(undefined) // undefined
+	/*
+	还真是 指定啥就是啥啊！
+	 */
+	
+	/*
+	以上的论述 最终思想，是证明了，严格模式下，函数的 this 指向是指定的对象，即使，指定的是 null 和 undefined, this的指向也是 null 和 undefined;
+
+	 如果没有指定 会返回 undefined;
+
+	 而我们 把这个被指定的对象，来作为 test()执行上下文的环境对象，那么 我们的结论 是说的通的；
+
+	 概括一下：
+
+		浏览器环境 严格模式下：
+
+		函数作为单独函数 执行：
+
+	 		1.函数执行上下文的环境对象 是指定的，指定什么就是什么；this指向这个指定的环境对象；
+
+		函数作为对象方法 执行：
+
+	 		2.这个函数执行上下文的环境对象就是这个拥有它的对象；this指向这个拥有它的对象；
+	 */
+	
+
+</script>
+	
+</body>
+</html>

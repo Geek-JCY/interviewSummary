@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> -->
+    <style type="text/css">
+        html,body,* {
+            margin: 0; padding: 0;
+        }
+        body {
+            font-size: 0;
+        }
+        .square {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <pre>
+    在缩放级别为100%时，1单位的CSS的pixel是严格相等于1单位的设备pixel。
+
+     </pre>
+
+    <div class="square">1</div>
+    <div class="square">1</div>
+    <div class="square">1</div>
+    <div class="square">1</div>
+    <div class="square">1</div>
+    <div class="square">1</div>
+    <div class="square">1</div>
+    <div class="square">1</div>
+
+    <script type="text/javascript">
+        console.log(document.body.clientWidth);
+        console.log(window.screen.width);
+    </script>
+
+</body>
+</html>

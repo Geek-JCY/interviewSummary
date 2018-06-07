@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div id="box">
+        <button onclick="addList()">Button</button>
+        <button onclick="addList2()">Button</button>
+    </div>
+    <div>
+    	<ul id="myList">
+    		<li>item</li>
+    	</ul>
+    	<hr>
+    </div>
+<script type="text/javascript">
+
+function addList(){
+	
+	var doc = document,
+	list = doc.getElementById('myList'),
+	item,
+	i;
+	console.time('addList');
+	for(i=0; i<1000; i++){
+		item = doc.createElement('li');
+		list.appendChild(item);
+		item.appendChild(doc.createTextNode('item '+ i));
+		console.log(list.clientHeight);
+	}
+	console.timeEnd('addList');
+}
+
+
+function addList2(){
+	
+	var doc = document,
+	list = doc.getElementById('myList'),
+	fragment = doc.createDocumentFragment(),
+	item,
+	i;
+	console.time('addList2');
+	for(i=0; i<1000; i++){
+		item = doc.createElement('li');
+		item.appendChild(doc.createTextNode('item '+ i));
+		fragment.appendChild(item);
+		console.log(list.clientHeight);
+	}
+	list.appendChild(fragment);
+	console.timeEnd('addList2');
+}
+
+/*
+直接往元素里 append的操作会引发 reflow，在循环中多次触发 reflow是非常不讨好的事情，
+我们聪明的现代浏览器会将短时间内的多次 reflow收集起来组成队列，在一定时间后 flush队列，将多个 reflow的变为一次 reflow。
+
+直接获取 offsetHeight会导致浏览器马上 flush队列，计算出当前值。
+除了计算 offsetHeight，clientHeight/clientWidth，offsetWidth，scrollTop/Left/Height/width也会使浏览器立即 flush队列。
+ */
+
+
+</script>
+
+</body>
+</html>

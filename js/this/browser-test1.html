@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>this 指向</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	/*
+	1.全局上下文中的 this
+
+	浏览器环境下：
+
+		严格模式下： Window
+
+		非严格模式下： Window
+
+	 */
+	
+	'use strict'; // 严格模式
+	// demo 1:
+	console.log(this);
+
+	// demo 2:
+	var a = this;
+	console.log(a);
+
+	// demo 3:
+	b = this; // 注意：严格模式下，变量必须得声明；非严格模式，可以省略声明符
+	console.log(b);
+
+	/*
+	分析：
+		浏览器环境下：
+
+		在整个 执行上下文 创建过程，都是在 全局执行环境下进行的，而这种由全局执行环境创建的执行上下文，又叫 “全局执行上下文”；
+
+		而在 Web浏览器中，全局执行环境被认为是 window对象；
+
+		结果 输出了 Window对象，也就说 this 指向了“执行上下文的环境对象”；
+
+		所以，结论 “this 指向其执行上下文的环境对象”，通过；
+
+	 */
+
+</script>
+	
+</body>
+</html>

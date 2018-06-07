@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div>
+
+    </div>
+<script type="text/javascript">
+    var a = 1;
+    function test(){
+        var b = 2;
+        function test_1(){
+            var c = 3;
+            var c2 = 4;
+            function test_2(){
+                var d = 4;
+                console.log(b,c);
+            }
+            return test_2;
+        }
+        return test_1();
+    }
+
+    var testTT = test();
+
+    testTT();
+
+</script>
+
+</body>
+</html>

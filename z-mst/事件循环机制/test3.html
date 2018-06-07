@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        /*
+            浏览器环境下：
+            setTimeout1() 和 setTimeout2() ，首先，按照 定时时间确定执行顺序；如果定时时间相同，按执行上下文的先后顺序执行；
+         */
+        console.log('golb1');
+
+        setTimeout(function(){
+            console.log('setTimeout1');
+            new Promise(function(resolve){
+                console.log('promise_1');
+                resolve()
+            }).then(function(){
+                console.log('promise_then1');
+            })
+        })
+
+        setTimeout(function(){
+            console.log('setTimeout2');
+            new Promise(function(resolve){
+                console.log('promise_2');
+                resolve()
+            }).then(function(){
+                console.log('promise_then2');
+            })
+        })
+
+        new Promise(function(resolve) {
+            console.log('glob1_promise');
+            resolve();
+        }).then(function() {
+            console.log('glob1_then')
+        })
+
+        new Promise(function(resolve) {
+            console.log('glob2_promise');
+            resolve();
+        }).then(function() {
+            console.log('glob2_then')
+        })
+
+    </script>
+</body>
+</html>

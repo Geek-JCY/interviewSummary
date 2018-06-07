@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>跨浏览器的CORS</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function createCORSRequest(method, url){
+			var xhr = new XMLHttpRequest();
+			if("withCredentials" in xhr){
+				xhr.open(method, url, true);
+			} else if (typeof XDomainRequest != "undefined"){
+				xhr = new XDomainRequest();
+				xhr.open(menthod, url);
+			} else {
+				xhr = null;
+			}
+			return xhr;
+		}
+
+		var request = createCORSRequest("get", "../example.txt");
+		if(request){
+			request.onload = function(){
+				console.log(request.responseText);
+			}
+			request.send(null);
+		}
+
+	</script>
+</body>
+</html>

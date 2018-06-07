@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JSONP test</title>
+</head>
+<body>
+	<div id="list"></div>
+	
+	<script type="text/javascript">
+		// jsonp callback
+		function handleResponse(response){
+			console.log(response);
+			addListToHtml(getListStr(response.s));
+		} 
+
+		// 得到 list html 字符串
+		function getListStr(data){
+			var listStr='',liStr='';
+			for (var i = 0, len = data.length; i < len; i++) {
+				liStr += '<li>'+data[i]+'</li>';
+			}
+			listStr = '<ul>'+liStr+'</ul>';
+			return listStr;
+		}
+		// 将 list字符串 添加到 指定DOM中
+		function addListToHtml(liststr){
+			var list = document.getElementById('list');
+			list.innerHTML=liststr;
+		}
+
+		// jsonp请求的底层原理
+		var script = document.createElement('script');
+		script.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=handleResponse";
+		document.body.insertBefore(script, document.body.firstChild);
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>load事件</title>
+</head>
+<body>
+	
+	
+	<script type="text/javascript">
+		// 创建 XHR对象的兼容性 写法
+        function createXHR(){
+            if (typeof XMLHttpRequest != "undefined"){
+                return new XMLHttpRequest();
+            } else if (typeof ActiveXObject != "undefined"){
+                if (typeof arguments.callee.activeXString != "string"){
+                    var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0",
+                                    "MSXML2.XMLHttp"],
+                        i, len;
+            
+                    for (i=0,len=versions.length; i < len; i++){
+                        try {
+                            var xhr = new ActiveXObject(versions[i]);
+                            arguments.callee.activeXString = versions[i];
+                            return xhr;
+                        } catch (ex){
+                            //skip
+                        }
+                    }
+                }
+            
+                return new ActiveXObject(arguments.callee.activeXString);
+            } else {
+                throw new Error("No XHR object available.");
+            }
+        }
+
+        var xhr = createXHR();
+        xhr.onload = function(){
+			if( (xhr.status >= 200 && xhr.status < 300) || xhr.status == 304 ){
+				console.log(xhr.responseText);
+			} else {
+				console.log('Request was unsucessful: ' + xhr.status );
+			}
+		}
+		xhr.open('get','../example.txt', true);
+		
+		xhr.send(null);
+	</script>
+
+
+</body>
+</html>

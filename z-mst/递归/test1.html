@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script type="text/javascript">
+	// 考点：递归；闭包；作用域链；
+
+	function func(n,k){
+		document.write(k + '<br/>')
+		return {
+			func: function(m){
+				return func(m,n);
+			}
+		}
+	}
+	var a = func(10); a.func(20); a.func(30); a.func(40);
+	/*
+		结果：undefined 10 10 10
+		原因：1. func(10)执行，k为 undefined; 所以首先输出 undefined; 
+			  2. func(10)执行后，返回一个对象a, 对象a中的函数应用了 func()函数中的参数变量n, 这也就形成了闭包, 所以整条作用链是要保存下来的；
+				 所以 a.func(20)、a.func(30)、a.func(40)函数在执行时，递归调用了 func(m, n)函数;
+				  (
+				  	m 是a.func(val) 参数 val --> 如：a.func(20)执行时的参数 20；
+				  	n是 func(n, k)函数作用域内的变量对象中的 n --> 它等于调用func(10) 时的参数变量值 10；
+				  )
+				 所以，a.func(20)、a.func(30)、a.func(40)函数在执行时输出结果为依次为： 10 10 10
+			  3. 所以，最终结果为: undefined 10 10 10
+	 */
+	
+	var b = func(50).func(60).func(70).func(80);
+	/*
+		结果：undefined 50 60 70
+	 */
+	
+	 var c = func(100).func(200); c.func(300); c.func(400);
+	 /*
+	 	结果：undefined 100 200 200
+	  */
+</script>
+	
+</body>
+</html>

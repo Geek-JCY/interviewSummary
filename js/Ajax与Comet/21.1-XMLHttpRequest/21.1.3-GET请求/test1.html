@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GET请求</title>
+</head>
+<body>
+    <p>This example must be run on a server to work properly.</p>
+    <script type="text/javascript">
+        // 创建 XHR对象的兼容性 写法
+        function createXHR(){
+            if (typeof XMLHttpRequest != "undefined"){
+                return new XMLHttpRequest();
+            } else if (typeof ActiveXObject != "undefined"){
+                if (typeof arguments.callee.activeXString != "string"){
+                    var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0",
+                                    "MSXML2.XMLHttp"],
+                        i, len;
+            
+                    for (i=0,len=versions.length; i < len; i++){
+                        try {
+                            var xhr = new ActiveXObject(versions[i]);
+                            arguments.callee.activeXString = versions[i];
+                            return xhr;
+                        } catch (ex){
+                            //skip
+                        }
+                    }
+                }
+            
+                return new ActiveXObject(arguments.callee.activeXString);
+            } else {
+                throw new Error("No XHR object available.");
+            }
+        }
+
+        // GET请求 组织URL 的方法
+        function addURLParam(url, name, value){
+            url += (url.indexOf("?") == -1 ? "?" : "&");
+            url += encodeURIComponent(name) + "=" + encodeURIComponent(value);
+            return url;
+        }
+
+
+        // 开始一个 XHR 请求
+        var xhr = createXHR();        
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState == 4){
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304){
+                    console.log(xhr.responseText);
+                } else {
+                    console.log("Request was unsuccessful: " + xhr.status);
+                } 
+            }
+        };
+        // 组织 URL
+        var url = addURLParam('../example.txt', "name", "jack");
+        url = addURLParam(url, "book", "JavaScript");
+
+        xhr.open("get", url, true);
+        xhr.send(null);
+
+    </script>
+</body>
+</html>

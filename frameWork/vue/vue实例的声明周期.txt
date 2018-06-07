@@ -1,0 +1,16 @@
+Vue实例创建的声明周期
+
+beforeCreate
+created
+
+beforeMount
+mounted
+
+beforeUpdate
+updated
+
+beforeDestory
+destoryed
+
+操作DOM再哪个周期中进行
+
