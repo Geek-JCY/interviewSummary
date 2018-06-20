@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模块加载实现</title>
+</head>
+<body>
+    <script type="module">
+        import {A, B} from './module-foo.js';
+        import barMoudle from './module-bar.js';
+        console.log(A); // A
+        console.log(B); // B
+        barMoudle(); // bar
+    </script>
+</body>
+</html>

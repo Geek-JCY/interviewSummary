@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板字符串 测试</title>
+</head>
+<body>
+    <pre>
+        /**
+        模板字符串（template string）是增强版的字符串，用反引号（`）标识。
+
+        它可以当作普通字符串使用，也可以用来定义多行字符串，或者在字符串中嵌入变量。
+
+        /**
+            所有模板字符串的空格和换行，都是被保留的，比如&lt;ul&gt;标签前面会有一个换行。
+            如果你不想要这个换行，可以使用trim方法消除它
+        
+        /**
+        模板字符串中嵌入变量，需要将变量名写在${}之中
+        <pre style="color: red; font-weight:bold; font-size:14px; line-height:24px;">
+            1.大括号内部可以放入任意的 JavaScript 表达式，可以进行运算，以及引用对象属性
+            2.模板字符串之中还能调用函数
+            3.如果大括号中的值不是字符串，将按照一般的规则转为字符串
+            4.模板字符串甚至还能嵌套
+            5.如果模板字符串中的变量没有声明，将报错
+            6.如果大括号内部是一个字符串，将会原样输出
+        </pre>
+    </pre>
+
+    <div id="result"></div>
+    
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        let {foo, bar, baz} = {foo: '1a', bar: '2b', baz: '3c'};
+
+        // console.log( document.querySelector('#result') ); 
+        document.querySelector('#result').innerHTML = `
+            <ul>
+                <li>${foo}</li>
+                <li>${bar}</li>
+                <li>${baz}</li>
+            </ul>
+        `;
+    </script>
+    
+</body>
+</html>

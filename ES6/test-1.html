@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>ES6 test</title>
+</head>
+<body>
+	<div id="output"></div>
+	<!-- Load Babel -->
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<!-- Your custom script here -->
+	<!-- 
+		查看浏览器对 ES6 的支持情况 地址：http://kangax.github.io/compat-table/es6/
+
+		使用 balel 时， script 标签 type="text/babel",
+
+		对于 支持 ES6 的浏览器，正常使用 type="text/javascript" 即可
+	 -->
+	<script type="text/babel">
+		const getMessage = () => "Hello World";
+		document.getElementById('output').innerHTML = getMessage();
+	</script>
+</body>
+</html>

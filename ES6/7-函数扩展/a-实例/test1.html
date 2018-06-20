@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6 function 参数 可以直接赋值</title>
+</head>
+<body>
+    <!-- <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+    <script type="text/javascript">
+        // ES6 function 参数 可以直接赋值
+        function log(x, y='world'){
+            console.log(x, y);
+        }
+        log('Hello');
+        log('Hello', 'china');
+        log('Hello', '');
+    </script>
+    
+</body>
+</html>
