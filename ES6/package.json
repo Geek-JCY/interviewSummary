@@ -1,0 +1,19 @@
+{
+  "name": "es6",
+  "version": "1.0.0",
+  "description": "project for ES6 test",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.5.2"
+  },
+  "scripts": {
+    "build": "babel src -d lib"
+  },
+  "keywords": [
+    "ES6"
+  ],
+  "author": "jcy",
+  "license": "ISC"
+}
